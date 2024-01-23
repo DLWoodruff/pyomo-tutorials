@@ -1,0 +1,183 @@
+\documentclass{beamer}
+\usetheme{default}
+
+\usepackage{amsmath, amsfonts, amsthm}
+%%%\usepackage{algorithm}
+
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\tos}{\rightrightarrows}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\set}[2]{\left\{#1 \; \left|\;\; #2 \right.\right\}}
+\newcommand{\setl}[2]{\left\{\left. #1 \;\; \right| \; #2 \right\}}
+\newcommand{\seq}[1]{\{ #1 \}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\smallnorm}[1]{\lVert#1\rVert}
+\newcommand{\normq}[1]{\norm{#1}^2}
+\newcommand{\smallnormq}[1]{\smallnorm{#1}^2}
+\newcommand{\card}[1]{\left|{#1}\right|}
+\newcommand{\abs}[1]{\card{#1}}
+\newcommand{\grad}{\nabla}
+\newcommand{\inner}[2]{\langle{#1},{#2}\rangle}
+\newcommand{\Inner}[2]{\left\langle{#1},{#2}\right\rangle}
+\newcommand{\inverse}{^{-1}}
+\newcommand{\uprime}{^\prime}
+\DeclareMathOperator{\defineoperator}{def}
+\newcommand{\defeq}{\stackrel{\defineoperator}{=}}
+\newcommand{\weak}{\mathsf{w}}
+\newcommand{\weakto}{\stackrel{\weak}{\rightarrow}}
+%\newcommand{\enlarge}[1]{^{\{#1\}}}
+\newcommand{\enlarge}[1]{^{[#1]}}
+\newcommand{\half}{\textstyle{\frac{1}{2}}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\transpose}{^{\scriptscriptstyle \top}}
+\newcommand{\orthog}{^{\scriptscriptstyle \perp}}
+
+\newcommand{\E}{\mathbb{E}}
+
+% mathematical boldface
+\newcommand{\bfxi}{\mbox{\boldmath $\xi$}}
+\newcommand{\bfeta}{\mbox{\boldmath $\eta$}}
+\newcommand{\bfzeta}{\mbox{\boldmath $\zeta$}}
+\newcommand{\bfrho}{\mbox{\boldmath $\rho$}}
+\newcommand{\bfgamma}{\mbox{\boldmath $\gamma$}}
+\newcommand{\bfphi}{\mbox{\boldmath $\phi$}}
+\newcommand{\bfbeta}{\mbox{\boldmath $\beta$}}
+\newcommand{\bfGamma}{\mbox{\boldmath $\Gamma$}}
+
+\DeclareMathOperator{\graph}{Gph}
+\DeclareMathOperator{\median}{mid}
+\DeclareMathOperator{\range}{rge}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ri}{ri}
+\DeclareMathOperator{\sri}{sri}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\closure}{cl}
+\DeclareMathOperator{\epi}{epi}
+
+
+\newcommand{\medianof}[1]{\median\left[\begin{array}{c}#1\end{array}\right]}
+\newcommand{\floor}[1]{\left\lfloor{#1}\right\rfloor}
+
+\usepackage{algorithm2e}  
+
+\usepackage{hyperref}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{upgreek}
+\usepackage{mathrsfs}
+\usepackage{float}
+
+\newcommand{\hilbert}{\mathcal{H}}
+\newcommand{\hilnp}{\hilbert^{n+1}}
+\newcommand{\hiltwon}{\hilbert^{2n}}
+\DeclareMathOperator{\extended}{e}
+\newcommand{\solext}{S_{\extended}}
+\newcommand{\sext}{Z}
+\newcommand{\prodmark}{^{\scriptscriptstyle \otimes}}
+\newcommand{\bigsext}{S_{\extended}\prodmark(T_1,\ldots,T_n)}
+\newcommand{\subseq}{_{k\in\mathcal{K}}}
+
+\DeclareMathOperator{\sympart}{sym}
+\DeclareMathOperator{\eigen}{eig}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator*{\argmin}{arg\ min}
+\DeclareMathOperator*{\Argmin}{Arg\ min}
+
+\DeclareMathOperator{\suchthat}{ST}
+
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\Prox}{Prox}
+\DeclareMathOperator{\id}{Id}
+
+\newtheorem{assumption}[theorem]{Assumption}
+% local stuff
+\def\dy#1\until#2{\mathrel{\mathop
+        {\null#1}\limits^{\hbox{\lower 1.3ex \hbox{$\scriptstyle{\;\to}$}}}}
+        {\hbox{{\kern -.2em${\null}
+       ^{\hbox{\raise .2ex \hbox{$\scriptstyle{#2}$}}}$}}}}
+\def\hidy#1\until#2{\mathrel{\mathop
+        {\null#1}\limits^{\hbox{\lower 1.0ex \hbox{$\scriptstyle{\;\to}$}}}}
+        {\hbox{{\kern -.2em${\null}
+        ^{\hbox{\raise 0.9ex \hbox{$\scriptstyle{#2}$}}}$}}}\!}
+\newcommand{\lwdy}[2]{\mathrel{\mathop
+        {\raisebox{0.1ex}{\null$#1$}}{\hbox{\kern -1.0em
+{\raisebox{-0.8ex}{$\scriptstyle{\;\to #2}$}}}}}}
+\newcommand{\lwwdy}[2]{\mathrel{\mathop
+        {\raisebox{0.2ex}{\null$#1$}}{\hbox{\kern -1.0em
+{\raisebox{-1.1ex}{$\scriptstyle{\;\to #2}$}}}}}}
+\newcommand{\slwwdy}[2]{\scriptsize{{\mathrel{\mathop
+        {\raisebox{0.2ex}{\null$#1$}}{\hbox{\kern -1.0em
+{\raisebox{-1.1ex}{$\scriptstyle{\;\to #2}$}}}}}}}}
+
+% realization, variables and random variables over time
+\newcommand{\xitot}{\hidy{\xi}\until{t}}
+\newcommand{\xitotm}{\hidy{\xi}\until{t-1}}
+\newcommand{\xitotp}{\hidy{\xi}\until{t+1}}
+\newcommand{\xtot}{\dy{x}\until{t}}
+\newcommand{\xtotm}{\dy{x}\until{t-1}}
+
+\begin{document}
+
+\begin{frame}{}
+
+\begin{center}
+\begin{Large}
+Viewer 
+\end{Large}
+$\mbox{ }$\\
+David L.\ Woodruff\\
+Graduate School of Management\\
+University of California Davis\\
+DLWoodruff@UCDavis.edu\\
+\end{center}
+\end{frame}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+  \item Viewer works with ipython, etc.
+  \item You can view and modify a model on-the-fly (e.g., it is like a model debugger)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{To Use in Spyder's Ipython}
+  \If you are using Spyder: Important Note: Before running a PyQt application in Spyder, you need to change your Graphics backend to Automatic. You can do that by going to
+\\
+Tools > Preferences > IPython Console > Graphics
+\end{frame}
+
+\begin{frame}{Once in Ipython}
+\subtitle{From the Viewer readme}
+
+\begin{itemize}
+\item %gui qt 
+\item from pyomo.contrib.viewer.ui import get\_mainwindow
+\end{itemize}
+
+The new few things are probably done by running a program:
+\begin{itemize}
+\item import pyomo.environ as pyo
+\item model = pyo.ConcreteModel()
+\end{itemize}
+
+\begin{itemize}
+\item[] To get the viewer, do this in the Ipython terminal:
+\item[] ui = get\_mainwindow(model=model)
+\item[]
+\item []Now you can do model things, the viewer will stay in sync with the Pyomo model
+\end{itemize}
+\end{frame}
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% junk drawer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+https://github.com/DLWoodruff/EIA.git
