@@ -146,28 +146,29 @@ DLWoodruff@UCDavis.edu\\
 \end{frame}
 
 \begin{frame}{To Use in Spyder's Ipython}
-  \If you are using Spyder: Important Note: Before running a PyQt application in Spyder, you need to change your Graphics backend to Automatic. You can do that by going to
-\\
-Tools > Preferences > IPython Console > Graphics
+\begin{itemize}
+ \item[] If you are using Spyder: Important Note: Before running a PyQt application in Spyder, you need to change your Graphics backend to Automatic. You can do that by going to
+\item [] Tools $>$ Preferences $>$ IPython Console $>$ Graphics
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Once in Ipython}
 \subtitle{From the Viewer readme}
 
 \begin{itemize}
-\item %gui qt 
+\item \%gui qt 
 \item from pyomo.contrib.viewer.ui import get\_mainwindow
 \end{itemize}
 
 The new few things are probably done by running a program:
 \begin{itemize}
-\item import pyomo.environ as pyo
-\item model = pyo.ConcreteModel()
+\item[] import pyomo.environ as pyo
+\item[] model = pyo.ConcreteModel()
 \end{itemize}
 
 \begin{itemize}
 \item[] To get the viewer, do this in the Ipython terminal:
-\item[] ui = get\_mainwindow(model=model)
+\item ui = get\_mainwindow(model=model)
 \item[]
 \item []Now you can do model things, the viewer will stay in sync with the Pyomo model
 \end{itemize}
