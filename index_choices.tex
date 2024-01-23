@@ -1,0 +1,93 @@
+\documentclass[9pt,usenames,dvipsnames]{beamer}
+
+\usetheme[progressbar=frametitle,numbering=fraction]{metropolis}
+
+\title{Methods and Software for Confidence Intervals in Data-based Stochastic Programming}
+% \subtitle{A Bootstrap Approach}
+\date{}
+\author{}
+\institute{\inst{1} Graduate School of Management, \\ University of California, Davis}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\metroset{sectionpage=none}
+\section{Introduction}
+
+\begin{frame}{The Issue}
+\begin{itemize}
+\item One often uses part of the cross product
+  of multiple index sets.
+\item Sometimes the
+members in one dimension depend on the value in another
+\item Slang: ``jagged sets.''
+\end{itemize}
+\end{frame}
+
+\begin{frame}{For Example}
+\begin{itemize}
+\item   A modeler may want to have a constraint to hold for
+$$
+i \in \mathcal{I},\; k \in \mathcal{K}, \; v \in \mathcal{V}_{k}.
+$$
+\item  One good way to accomplish this is to create a
+set of tuples composed only of all valid ``model.k, model.V[k]'' pairs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]\frametitle{Abstract Code Snippet}
+
+\begin{verbatim}
+model.I = pyo.Set()
+model.K = pyo.Set()
+model.V = pyo.Set(model.K)
+
+def kv_init(m):
+    return ((k,v) for k in m.K for v in m.V[k])
+model.KV = pyo.Set(dimen=2, initialize=kv_init)
+
+model.a = pyo.Param(model.I, model.K)
+
+model.y = pyo.Var(model.I)
+model.x = pyo.Var(model.I, model.KV)
+
+# include a constraint that looks like this:
+# x[i,k,v] <= a[i,k]*y[i], for i in I, k in K, v in V[k]
+
+def c1Rule(m,i,k,v):
+   return m.x[i,k,v] <= m.a[i,k]*m.y[i]
+model.c1 = pyo.Constraint(model.I, model.KV, rule=c1Rule)
+\end{verbatim}
+
+\end{frame}
+
+\end{document}
+\section{Sparse Index Sets \label{sec:sparseindex}}
+\label{sec:performance.sparse_sets}
+
+\index{Set@\code{Set}!sparse}
+Often, a model makes use of only a portion of the cross product
+of multiple index sets. In particular, sometimes the
+members in one dimension depend on the value in another, leading
+to the slang ``jagged sets.''
+
+For example, a modeler may want to have a constraint to hold for
+$$
+i \in \mathcal{I},\; k \in \mathcal{K}, \; v \in \mathcal{V}_{k}.
+$$
+There are many ways to accomplish this, but one good way is to create a
+set of tuples composed of all of valid ``model.k, model.V[k]'' pairs.
+This is illustrated in the following example where the jagged
+set \code{KV} is used.
+
+\autobreaklisting{pyomo/examples/doc/pyomobook/performance-ch/SparseSets.py}{}{1}{23}
+
+An alternative strategy would be to declare the constraint to be indexed by sets
+I, K, and V and then use \code{pyo.Constraint.Skip()} to pass over the indices
+that are not present. However, in higher dimension, or with large sets this can
+cause significant performance degradation.
+
+\end{document}
